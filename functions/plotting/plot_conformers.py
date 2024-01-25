@@ -83,3 +83,26 @@ def rmsd_analysis(ligands: str, set1: Path, set2: Path, save=False):
 
     if save:
         plt.savefig(f"rmsd_analysis_{set1.name}_{set2.name}.svg")
+
+
+def feature_histograms(ligands: str, feature: str, data1: pd.DataFrame, data2: pd.DataFrame, label1: str, label2: str, save=False):
+    fig, axs = plt.subplots(nrows=3, ncols=4, figsize=(20, 20))
+
+    for i, ax in zip(ligands, axs.ravel()[:len(ligands)]):
+        data1_use = data1[data1['file'].str.contains(i)]
+        data1_use.reset_index(drop=True, inplace=True)
+        data2_use = data2[data2['file'].str.contains(i)]
+        data2_use.reset_index(drop=True, inplace=True)
+        
+        ax.set_title(str(i), fontdict={'weight': 'bold'})
+        
+        data = {label1: data1_use[feature], label2: data2_use[feature].to_list()}
+
+        sns.histplot(data, kde=True, stat="density", ax=ax)
+
+        ax.set_xlabel(feature)
+
+    plt.tight_layout()
+
+    if save:
+        plt.savefig(f"feature_histograms_{feature}.svg")
