@@ -1,0 +1,7 @@
+matplotlib
+numpy
+mdanalysis
+pandas
+seaborn
+morfeus-ml
+tqdm

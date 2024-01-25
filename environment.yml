@@ -1,0 +1,12 @@
+name: BisphosphineConformerSelection
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - matplotlib
+  - numpy
+  - mdanalysis
+  - pandas
+  - seaborn
+  - morfeus-ml
+  - tqdm
