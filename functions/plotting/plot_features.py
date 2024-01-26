@@ -8,7 +8,6 @@ def feature_bars(feature_list, feature_values, ax, title=None, xlabel=None):
     ax.set_title(title, fontdict={'weight': 'bold'})
     ax.set_xlabel(xlabel)
 
-
 def plot_regression(x, y, ax):
     slope, intercept, r_value, p_value, std_err = stats.linregress(x, y)
     sns.regplot(x=x, y=y, ax=ax)
