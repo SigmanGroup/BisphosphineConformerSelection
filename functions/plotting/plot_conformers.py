@@ -14,7 +14,7 @@ from MDAnalysis.analysis import rms
 GRAY = '#D0D3C5'
 BLUE = '#08708A'
 RED = '#D73A31'
-HIST_COLOR = '#56B1BF'
+LIGHT_BLUE = '#56B1BF'
 
 def bar_graph(ligands: str, dictionary: dict, save=False):
     x = np.arange(len(ligands))
@@ -216,7 +216,7 @@ def plot_dft_distributions(df_all, df_sele, ligand_id, descriptors, savefig=Fals
     fig.suptitle(f"Ligand {ligand_id} selected conformers", fontsize=16, x=0.5, y=0.90, fontweight='bold')
 
     for descriptors, ax in zip(descriptors, axs.ravel()):
-        sns.histplot(df_all[descriptors], kde=True, ax=ax, color=HIST_COLOR)
+        sns.histplot(df_all[descriptors], kde=True, ax=ax, color=LIGHT_BLUE)
         for i in df_sele[descriptors]:
             ax.scatter(x=i, y=0.1, color=RED, s=400, edgecolor='w')
 
