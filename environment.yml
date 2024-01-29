@@ -10,3 +10,5 @@ dependencies:
   - seaborn
   - morfeus-ml
   - tqdm
+  - scikit-learn
+  - openpyxl
