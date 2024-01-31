@@ -235,7 +235,7 @@ def plot_equidistant_feature_selections(df, ligand_id, features, sele_num=10, te
         plt.savefig(f"{ligand_id}_steric-sel_{sele_num}confs.svg")
 
 
-def plot_equidistant_energy_selections(df, ligand_id, features, sele_num=10, text_file_path=None, write_text_file=False, savefig=False):\
+def plot_equidistant_energy_selections(df, ligand_id, features, sele_num=10, text_file_path=None, write_text_file=False, savefig=False):
     """
     Plots equidistant selections of conformers based on the xtb energy.
     Selections are plotted as a histogram and as a scatter plot of the xtb energy against the xtb energy.
@@ -251,7 +251,7 @@ def plot_equidistant_energy_selections(df, ligand_id, features, sele_num=10, tex
     Returns:
         None
     """
-
+    
     fig, axs = plt.subplots(nrows=3, ncols=3, figsize=(20,15))
     fig.suptitle(f"Ligand {ligand_id}: Equidistant selections based on GFN2-xTB energy", fontsize=16, x=0.5, y=0.93, fontweight='bold')
 

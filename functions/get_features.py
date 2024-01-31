@@ -72,7 +72,7 @@ def get_buried_volume(xyz_file: str) -> float:
     return percent_bv
 
 
-def get_solid_angle(xyz_file: str) -> Tuple[float, float, float]:
+def get_solid_angle(xyz_file: str) -> list:
     """
     Gets the solid angle of a complex using MORFEUS. Solid angle, solid cone angle and G parameter are determined.
     Chloride ligands are excluded from the calculation.
@@ -104,7 +104,7 @@ def get_solid_angle(xyz_file: str) -> Tuple[float, float, float]:
     return solid_angle, solid_cone_angle, g_param
 
 
-def all_buried_volumes(xyz_file: str) -> Tuple[float, float, float, float, float]:
+def all_buried_volumes(xyz_file: str) -> list:
     """
     Gets the buried volume within spheres of radii 3, 4, 5, 6 and 7 Å of a complex using MORFEUS.
     Chloride ligands are excluded from the calculation.
