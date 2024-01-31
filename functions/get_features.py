@@ -4,7 +4,6 @@ Uses MORFEUS: https://github.com/digital-chemistry-laboratory/morfeus/tree/main
 """
 
 import numpy as np
-import pandas as pd
 from morfeus import read_xyz, BiteAngle, BuriedVolume, SolidAngle
 from morfeus.utils import get_connectivity_matrix
 
@@ -72,7 +71,7 @@ def get_buried_volume(xyz_file: str) -> float:
     return percent_bv
 
 
-def get_solid_angle(xyz_file: str) -> list:
+def get_solid_angle(xyz_file: str) -> tuple[float, float, float]:
     """
     Gets the solid angle of a complex using MORFEUS. Solid angle, solid cone angle and G parameter are determined.
     Chloride ligands are excluded from the calculation.
@@ -104,7 +103,7 @@ def get_solid_angle(xyz_file: str) -> list:
     return solid_angle, solid_cone_angle, g_param
 
 
-def all_buried_volumes(xyz_file: str) -> list:
+def all_buried_volumes(xyz_file: str) -> tuple[float, float, float, float, float]:
     """
     Gets the buried volume within spheres of radii 3, 4, 5, 6 and 7 Å of a complex using MORFEUS.
     Chloride ligands are excluded from the calculation.
@@ -126,8 +125,7 @@ def all_buried_volumes(xyz_file: str) -> list:
     elements, coordinates = read_xyz(xyz_file)
     m_index = np.where(elements == 'Pd')[0][0]
     
-    connectivity_matrix = get_connectivity_matrix(coordinates, elements, radii_type='pyykko',
-                                                 scale_factor=1.2)
+    connectivity_matrix = get_connectivity_matrix(coordinates, elements, radii_type='pyykko', scale_factor=1.2)
     connected_atoms = np.where(connectivity_matrix[m_index, :])[0]
     cl_atoms = []
     for i in connected_atoms:
@@ -135,23 +133,23 @@ def all_buried_volumes(xyz_file: str) -> list:
             cl_atoms.append(i)
             
     bv3 = BuriedVolume(elements, coordinates, m_index+1, include_hs=True, radius=3,
-                      excluded_atoms=[cl_atoms[0]+1, cl_atoms[1]+1])
+                       excluded_atoms=[cl_atoms[0]+1, cl_atoms[1]+1])
     percent_bv3 = bv3.fraction_buried_volume * 100
     
     bv4 = BuriedVolume(elements, coordinates, m_index+1, include_hs=True, radius=4,
-                      excluded_atoms=[cl_atoms[0]+1, cl_atoms[1]+1])
+                       excluded_atoms=[cl_atoms[0]+1, cl_atoms[1]+1])
     percent_bv4 = bv4.fraction_buried_volume * 100
     
     bv5 = BuriedVolume(elements, coordinates, m_index+1, include_hs=True, radius=5,
-                      excluded_atoms=[cl_atoms[0]+1, cl_atoms[1]+1])
+                       excluded_atoms=[cl_atoms[0]+1, cl_atoms[1]+1])
     percent_bv5 = bv5.fraction_buried_volume * 100
     
     bv6 = BuriedVolume(elements, coordinates, m_index+1, include_hs=True, radius=6,
-                      excluded_atoms=[cl_atoms[0]+1, cl_atoms[1]+1])
-    percent_bv6 = bv4.fraction_buried_volume * 100
+                       excluded_atoms=[cl_atoms[0]+1, cl_atoms[1]+1])
+    percent_bv6 = bv6.fraction_buried_volume * 100
     
     bv7 = BuriedVolume(elements, coordinates, m_index+1, include_hs=True, radius=7,
-                      excluded_atoms=[cl_atoms[0]+1, cl_atoms[1]+1])
-    percent_bv7= bv7.fraction_buried_volume * 100
+                       excluded_atoms=[cl_atoms[0]+1, cl_atoms[1]+1])
+    percent_bv7 = bv7.fraction_buried_volume * 100
     
     return percent_bv3, percent_bv4, percent_bv5, percent_bv6, percent_bv7

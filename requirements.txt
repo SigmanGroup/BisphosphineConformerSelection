@@ -7,3 +7,4 @@ morfeus-ml
 tqdm
 scikit-learn
 openpyxl
+scipy

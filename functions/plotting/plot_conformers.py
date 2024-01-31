@@ -57,7 +57,8 @@ def bar_graph(ligands: str, dictionary: dict, save=False):
 def rmsd_analysis(ligands: str, set1: Path, set2: Path, save=False):
     """
     Performs an RMSD analysis on two sets of conformers.
-    RMSD analysis is pefromed using MDAnalysis. See https://docs.mdanalysis.org/stable/documentation_pages/analysis/rms.html.
+    RMSD analysis is performed using MDAnalysis.
+    See https://docs.mdanalysis.org/stable/documentation_pages/analysis/rms.html.
     Resultant RMSD analysis is printed to the console and plotted as a histogram.
     
     Args:
@@ -74,6 +75,9 @@ def rmsd_analysis(ligands: str, set1: Path, set2: Path, save=False):
     filelist2 = os.listdir(set2)
 
     fig, axs = plt.subplots(nrows=3, ncols=4, figsize=(20, 20))
+
+    file1 = None
+    file2 = None
 
     for ligand, ax in zip(tqdm(ligands, ncols=80), axs.ravel()[:len(ligands)]):
         for file in filelist1:
@@ -124,7 +128,8 @@ def rmsd_analysis(ligands: str, set1: Path, set2: Path, save=False):
         plt.savefig(f"rmsd_analysis_{set1.name}_{set2.name}.svg")
 
 
-def feature_histograms(ligands: str, feature: str, data1: pd.DataFrame, data2: pd.DataFrame, label1: str, label2: str, save=False):
+def feature_histograms(ligands: str, feature: str, data1: pd.DataFrame, data2: pd.DataFrame, label1: str, label2: str,
+                       save=False):
     """
     Plots histograms of a feature for two sets of conformers.
     
@@ -163,7 +168,8 @@ def feature_histograms(ligands: str, feature: str, data1: pd.DataFrame, data2: p
         plt.savefig(f"feature_histograms_{feature}.svg")
 
 
-def plot_equidistant_feature_selections(df, ligand_id, features, sele_num=10, text_file_path=None, write_text_file=False, savefig=False):
+def plot_equidistant_feature_selections(df, ligand_id, features, sele_num=10, text_file_path=None,
+                                        write_text_file=False, savefig=False):
     """
     Plots equidistant selections of conformers based on a feature.
     Selections are plotted as a histogram and as a scatter plot of the feature against the xtb energy.
@@ -183,8 +189,10 @@ def plot_equidistant_feature_selections(df, ligand_id, features, sele_num=10, te
         None
     """
 
-    fig, axs = plt.subplots(nrows=3, ncols=3, figsize=(20,15))
-    fig.suptitle(f"Ligand {ligand_id}: Equidistant selections based on steric/geometric features", fontsize=16, x=0.5, y=0.93, fontweight='bold')
+    global lec_selection
+    fig, axs = plt.subplots(nrows=3, ncols=3, figsize=(20, 15))
+    fig.suptitle(f"Ligand {ligand_id}: Equidistant selections based on steric/geometric features", fontsize=16, x=0.5,
+                 y=0.93, fontweight='bold')
 
     for i, ax in zip(features, axs.ravel()[3:6]):
         ax.plot(df[i].index, df[i], alpha=0.7, color=GRAY)
@@ -200,7 +208,8 @@ def plot_equidistant_feature_selections(df, ligand_id, features, sele_num=10, te
             with open(text_file_path / f"{ligand_id}_sterics_{sele_num}chosen.txt", 'a') as f:
                 print(f"Selected ligands from {i}: ")
                 f.write(f"Selected ligands from {i}: \n")
-                for j in selected['ligand']: print(j)
+                for j in selected['ligand']:
+                    print(j)
                 for m in lec_selection['ligand']:
                     print(f"LEC: {m}")
                     f.write(f"LEC: {m}\n")
@@ -225,8 +234,10 @@ def plot_equidistant_feature_selections(df, ligand_id, features, sele_num=10, te
         ax.scatter(df['rel_energy'], df['f(E)'], alpha=0.5, color=GRAY, label=f"All ({len(df['ligand'])})", s=100)
         selected = utils.select_equidistant_values(df, i, sele_num)
         lec_selection = utils.select_lec(df, 'xtb_energy')
-        ax.scatter(selected['rel_energy'], selected['f(E)'], color=BLUE, marker='.', s=300, edgecolor='k', label=f"Selected ({sele_num})")
-        ax.scatter(lec_selection['rel_energy'], lec_selection['f(E)'], color=RED, marker='.', s=300, edgecolor='k', label='LEC')
+        ax.scatter(selected['rel_energy'], selected['f(E)'], color=BLUE, marker='.', s=300, edgecolor='k',
+                   label=f"Selected ({sele_num})")
+        ax.scatter(lec_selection['rel_energy'], lec_selection['f(E)'], color=RED, marker='.', s=300, edgecolor='k',
+                   label='LEC')
         ax.set_ylabel('$f(E)$')
         ax.set_xlabel('Relative energy / kcal mol$^{–1}$')
         ax.legend()
@@ -235,7 +246,8 @@ def plot_equidistant_feature_selections(df, ligand_id, features, sele_num=10, te
         plt.savefig(f"{ligand_id}_steric-sel_{sele_num}confs.svg")
 
 
-def plot_equidistant_energy_selections(df, ligand_id, features, sele_num=10, text_file_path=None, write_text_file=False, savefig=False):
+def plot_equidistant_energy_selections(df: pd.DataFrame, ligand_id: str, features: list, sele_num: int = 10,
+                                       text_file_path: Path = None, write_text_file: Path = False, savefig=False):
     """
     Plots equidistant selections of conformers based on the xtb energy.
     Selections are plotted as a histogram and as a scatter plot of the xtb energy against the xtb energy.
@@ -247,20 +259,25 @@ def plot_equidistant_energy_selections(df, ligand_id, features, sele_num=10, tex
         ligand_id (str): Ligand ID.
         features (list): List of features to plot.
         sele_num (int, optional): Number of conformers to select. Defaults to 10.
+        text_file_path (Path, optional): Path to text file. Defaults to None.
+        write_text_file (bool, optional): Whether to write a text file. Defaults to False.
+        savefig (bool, optional): Whether to save the figure. Defaults to False.
         
     Returns:
         None
     """
-    
-    fig, axs = plt.subplots(nrows=3, ncols=3, figsize=(20,15))
-    fig.suptitle(f"Ligand {ligand_id}: Equidistant selections based on GFN2-xTB energy", fontsize=16, x=0.5, y=0.93, fontweight='bold')
+
+    fig, axs = plt.subplots(nrows=3, ncols=3, figsize=(20, 15))
+    fig.suptitle(f"Ligand {ligand_id}: Equidistant selections based on GFN2-xTB energy", fontsize=16, x=0.5, y=0.93,
+                 fontweight='bold')
 
     for i, ax in zip(features, axs.ravel()[:3]):
         df['rel_energy'] = (df['xtb_energy'] - df['xtb_energy'].min()) * 627.509
         df['f(E)'] = 1 / np.exp((df['rel_energy'] * 1000) / (1.987204 * 298.15))
         ax.scatter(df['rel_energy'], df['f(E)'], alpha=0.5, color=GRAY, s=100, label=f"All ({len(df['ligand'])})")
         selected = utils.select_equidistant_values(df, 'xtb_energy', sele_num)
-        ax.scatter(selected['rel_energy'], selected['f(E)'], color=BLUE, marker='.', s=300, edgecolor='k', label=f"Selected ({sele_num})")
+        ax.scatter(selected['rel_energy'], selected['f(E)'], color=BLUE, marker='.', s=300, edgecolor='k',
+                   label=f"Selected ({sele_num})")
         ax.set_ylabel('$f(E)$')
         ax.set_xlabel('Relative energy / kcal mol$^{–1}$')
         ax.legend()
@@ -269,7 +286,8 @@ def plot_equidistant_energy_selections(df, ligand_id, features, sele_num=10, tex
         with open(text_file_path / f"{ligand_id}_energy_{sele_num}chosen.txt", 'a') as f:
             print(f"Selected ligands from energy: ")
             f.write(f"Selected ligands from energy: \n")
-            for j in selected['ligand']: print(j)
+            for j in selected['ligand']:
+                print(j)
             print("-------------------------------------------\n")
             for j in selected['ligand']:
                 f.write(j + '\n')
@@ -310,7 +328,7 @@ def plot_dft_distributions(df_all, df_sele, ligand_id, descriptors, savefig=Fals
         None
     """
 
-    fig, axs = plt.subplots(nrows=6, ncols=3, figsize=(20,32))
+    fig, axs = plt.subplots(nrows=6, ncols=3, figsize=(20, 32))
     fig.suptitle(f"Ligand {ligand_id} selected conformers", fontsize=16, x=0.5, y=0.90, fontweight='bold')
 
     for descriptors, ax in zip(descriptors, axs.ravel()):

@@ -46,8 +46,8 @@ def plot_regression(x, y, ax):
     slope, intercept, r_value, p_value, std_err = stats.linregress(x, y)
     sns.regplot(x=x, y=y, ax=ax)
     props = dict(boxstyle='round', facecolor='white', alpha=0.5)
-    plt.text(0.05, 0.95, f"$R^2$ = {round(r_value**2, 2)}\n$p$-value = {p_value:.2e}", transform=ax.transAxes, fontsize=12,
-        verticalalignment='top', bbox=props)
+    plt.text(0.05, 0.95, f"$R^2$ = {round(r_value**2, 2)}\n$p$-value = {p_value:.2e}", transform=ax.transAxes,
+             fontsize=12, verticalalignment='top', bbox=props)
 
 
 def plot_tsne(dim1: pd.DataFrame, dim2: pd.DataFrame, save=False):
@@ -63,7 +63,7 @@ def plot_tsne(dim1: pd.DataFrame, dim2: pd.DataFrame, save=False):
         None
     """
 
-    plt.figure(figsize=(8.5,8))
+    plt.figure(figsize=(8.5, 8))
     plt.scatter(dim1, dim2)
     plt.xlabel(dim1.name)
     plt.ylabel(dim2.name)
@@ -75,7 +75,8 @@ def plot_tsne(dim1: pd.DataFrame, dim2: pd.DataFrame, save=False):
         plt.savefig("tsne.svg")
 
 
-def plot_tsne_clusters(dim1: pd.DataFrame, dim2: pd.DataFrame, clusters: pd.DataFrame, centroids=None, legend=True, save=False):
+def plot_tsne_clusters(dim1: pd.DataFrame, dim2: pd.DataFrame, clusters: pd.DataFrame, centroids=None, legend=True,
+                       save=False):
     """
     Plots a scatter plot of TSNE feature space with clusters.
     
@@ -91,7 +92,7 @@ def plot_tsne_clusters(dim1: pd.DataFrame, dim2: pd.DataFrame, clusters: pd.Data
         None
     """
 
-    plt.figure(figsize=(8.5,8))
+    plt.figure(figsize=(8.5, 8))
 
     n_clusters = len(clusters.unique())
 
@@ -135,7 +136,7 @@ def plot_pca(dim1: pd.DataFrame, dim2: pd.DataFrame, save=False):
         None
     """
 
-    plt.figure(figsize=(8.5,8))
+    plt.figure(figsize=(8.5, 8))
     plt.scatter(dim1, dim2)
     plt.xlabel(dim1.name)
     plt.ylabel(dim2.name)
@@ -145,7 +146,8 @@ def plot_pca(dim1: pd.DataFrame, dim2: pd.DataFrame, save=False):
         plt.savefig("pca.svg")
 
 
-def plot_pca_clusters(dim1: pd.DataFrame, dim2: pd.DataFrame, clusters: pd.DataFrame, centroids=None, legend=False, save=False):
+def plot_pca_clusters(dim1: pd.DataFrame, dim2: pd.DataFrame, clusters: pd.DataFrame, centroids=None, legend=False,
+                      save=False):
     """
     Plots a scatter plot of PCA feature space with clusters.
     
@@ -161,7 +163,7 @@ def plot_pca_clusters(dim1: pd.DataFrame, dim2: pd.DataFrame, clusters: pd.DataF
         None
     """
 
-    plt.figure(figsize=(8.5,8))
+    plt.figure(figsize=(8.5, 8))
     
     n_clusters = len(clusters.unique())
 

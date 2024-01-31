@@ -29,7 +29,7 @@ def count_conformer_number(path: Path, ligand: str) -> int:
 
 def get_xtb_energy(xyz_file: str) -> float:
     """
-    Gets the xTB energy from an xyz file. This is the second line of the xyz file.
+    Gets the xTB energy from a xyz file. This is the second line of the xyz file.
     
     Args:
         xyz_file (str): Path to xyz file.
@@ -59,9 +59,6 @@ def select_equidistant_values(df: pd.DataFrame, column: str, y: int) -> pd.DataF
     """
 
     sorted_df = df.sort_values(column)
-    min_value = sorted_df[column].min()
-    max_value = sorted_df[column].max()
-
     indices = np.linspace(0, len(sorted_df) - 1, y, dtype=int)
     selected_values = sorted_df.iloc[indices]
 
@@ -87,7 +84,7 @@ def select_lec(df: pd.DataFrame, column: str) -> pd.DataFrame:
     return lec
 
 
-def read_selection_txt_file(txt_file: str, sele_num: int =10) -> list:
+def read_selection_txt_file(txt_file: str, sele_num: int = 10) -> tuple[list, list]:
     """
     Reads the selection.txt file from conformers selected using MORFEUS features of xtb energy.
     Returns a list of the selected conformers.
@@ -168,6 +165,7 @@ def percent_difference(old_val: float, new_val: float) -> float:
     
     diff = abs(((new_val - old_val) / old_val) * 100.0)
     return diff
+
 
 def difference(old_val: float, new_val: float) -> float:
     """
