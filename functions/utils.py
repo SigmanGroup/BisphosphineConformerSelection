@@ -1,19 +1,63 @@
-# A file which contains all of the utility functions necessary to run the notebooks
-
-# These ones from the y_equidistant notebook:
+"""
+General utility functions for the project.
+"""
 
 import numpy as np
 import pandas as pd
+from pathlib import Path
 
-# TODO: probably should move this to the conformers python file
 
-def get_xtb_energy(xyz_file):
+def count_conformer_number(path: Path, ligand: str) -> int:
+    """
+    Counts the number of conformers for a given ligand in a directory.
+    
+    Args:
+        path (Path): Path to directory.
+        ligand (str): Ligand name.
+        
+    Returns:
+        int: Number of conformers.
+    """
+    
+    all_files = list(path.rglob('*'))
+    
+    count_list = [i for i in all_files if ligand in i.name]
+    count = len(count_list)
+
+    return count
+
+
+def get_xtb_energy(xyz_file: str) -> float:
+    """
+    Gets the xTB energy from an xyz file. This is the second line of the xyz file.
+    
+    Args:
+        xyz_file (str): Path to xyz file.
+    
+    Returns:
+        float: xTB energy.
+    """
+    
     with open(xyz_file, "r") as file:
         energy = float(file.readlines()[1])
 
     return energy
 
-def select_equidistant_values(df, column, y):
+
+def select_equidistant_values(df: pd.DataFrame, column: str, y: int) -> pd.DataFrame:
+    """
+    Selects equidistant values from a dataframe.
+    The values are selected based on the minimum and maximum values of a given column.
+    
+    Args:
+        df (pd.DataFrame): Dataframe.
+        column (str): Column name.
+        y (int): Number of values to select.
+        
+    Returns:
+        pd.DataFrame: Dataframe with selected values.
+    """
+
     sorted_df = df.sort_values(column)
     min_value = sorted_df[column].min()
     max_value = sorted_df[column].max()
@@ -23,14 +67,39 @@ def select_equidistant_values(df, column, y):
 
     return selected_values
 
-def select_lec(df, column):
+
+def select_lec(df: pd.DataFrame, column: str) -> pd.DataFrame:
+    """
+    Selects the lowest energy conformer from a dataframe.
+    
+    Args:
+        df (pd.DataFrame): Dataframe.
+        column (str): Column name.
+        
+    Returns:
+        pd.DataFrame: Dataframe with selected conformer.
+    """
+
     lec_df = df.sort_values(column)
     indices = np.linspace(0, len(lec_df) - 1, 1, dtype=int)
     lec = lec_df.iloc[indices]
 
     return lec
 
-def read_selection_txt_file(txt_file, sele_num=10):
+
+def read_selection_txt_file(txt_file: str, sele_num: int =10) -> list:
+    """
+    Reads the selection.txt file from conformers selected using MORFEUS features of xtb energy.
+    Returns a list of the selected conformers.
+    
+    Args:
+        txt_file (str): Path to selection.txt file.
+        sele_num (int, optional): Number of conformers selected. Defaults to 10.
+        
+    Returns:
+        list: List of selected conformers.
+    """
+    
     bite_angle_selections = []
     buried_volume_selections = []
 
@@ -84,12 +153,33 @@ def read_selection_txt_file(txt_file, sele_num=10):
 
     return bite_angle_dft, buried_volume_dft
 
-# this is from the DFT property analysis section
 
-def percent_difference(old_val, new_val):
+def percent_difference(old_val: float, new_val: float) -> float:
+    """
+    Calculates the percent difference between two values.
+    
+    Args:
+        old_val (float): Old value.
+        new_val (float): New value.
+    
+    Returns:
+        float: Percent difference.
+    """
+    
     diff = abs(((new_val - old_val) / old_val) * 100.0)
     return diff
 
-def difference(old_val, new_val):
+def difference(old_val: float, new_val: float) -> float:
+    """
+    Calculates the difference between two values.
+    
+    Args:
+        old_val (float): Old value.
+        new_val (float): New value.
+        
+    Returns:
+        float: Difference.
+    """
+
     diff = abs(new_val - old_val)
     return diff

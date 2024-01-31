@@ -1,3 +1,7 @@
+"""
+Functions for plotting conformer ensembles and performing RMSD analysis.
+"""
+
 import numpy as np
 import matplotlib.pyplot as plt
 from pathlib import Path
@@ -16,7 +20,20 @@ BLUE = '#08708A'
 RED = '#D73A31'
 LIGHT_BLUE = '#56B1BF'
 
+
 def bar_graph(ligands: str, dictionary: dict, save=False):
+    """
+    Plots a bar graph of the number of conformers for each ligand in a dictionary.
+    
+    Args:
+        ligands (str): List of ligands.
+        dictionary (dict): Dictionary of ligands and number of conformers.
+        save (bool, optional): Whether to save the figure. Defaults to False.
+        
+    Returns:
+        None
+    """
+
     x = np.arange(len(ligands))
     width = 0.25
     multiplier = 0
@@ -38,6 +55,21 @@ def bar_graph(ligands: str, dictionary: dict, save=False):
 
 
 def rmsd_analysis(ligands: str, set1: Path, set2: Path, save=False):
+    """
+    Performs an RMSD analysis on two sets of conformers.
+    RMSD analysis is pefromed using MDAnalysis. See https://docs.mdanalysis.org/stable/documentation_pages/analysis/rms.html.
+    Resultant RMSD analysis is printed to the console and plotted as a histogram.
+    
+    Args:
+        ligands (str): List of ligands.
+        set1 (Path): Path to first set of conformers.
+        set2 (Path): Path to second set of conformers.
+        save (bool, optional): Whether to save the figure. Defaults to False.
+
+    Returns:
+        None
+    """
+
     filelist1 = os.listdir(set1)
     filelist2 = os.listdir(set2)
 
@@ -93,6 +125,22 @@ def rmsd_analysis(ligands: str, set1: Path, set2: Path, save=False):
 
 
 def feature_histograms(ligands: str, feature: str, data1: pd.DataFrame, data2: pd.DataFrame, label1: str, label2: str, save=False):
+    """
+    Plots histograms of a feature for two sets of conformers.
+    
+    Args:
+        ligands (str): List of ligands.
+        feature (str): Feature to plot.
+        data1 (pd.DataFrame): Dataframe containing feature data for set 1.
+        data2 (pd.DataFrame): Dataframe containing feature data for set 2.
+        label1 (str): Label for set 1.
+        label2 (str): Label for set 2.
+        save (bool, optional): Whether to save the figure. Defaults to False.
+        
+    Returns:
+        None
+    """
+
     fig, axs = plt.subplots(nrows=3, ncols=4, figsize=(20, 20))
 
     for i, ax in zip(ligands, axs.ravel()[:len(ligands)]):
@@ -116,6 +164,25 @@ def feature_histograms(ligands: str, feature: str, data1: pd.DataFrame, data2: p
 
 
 def plot_equidistant_feature_selections(df, ligand_id, features, sele_num=10, text_file_path=None, write_text_file=False, savefig=False):
+    """
+    Plots equidistant selections of conformers based on a feature.
+    Selections are plotted as a histogram and as a scatter plot of the feature against the xtb energy.
+    The LEC is also plotted.
+    Outputs a text file of the selected conformers.
+    
+    Args:
+        df (pd.DataFrame): Dataframe containing feature data.
+        ligand_id (str): Ligand ID.
+        features (list): List of features to plot.
+        sele_num (int, optional): Number of conformers to select. Defaults to 10.
+        text_file_path (Path, optional): Path to text file. Defaults to None.
+        write_text_file (bool, optional): Whether to write a text file. Defaults to False.
+        savefig (bool, optional): Whether to save the figure. Defaults to False.
+        
+    Returns:
+        None
+    """
+
     fig, axs = plt.subplots(nrows=3, ncols=3, figsize=(20,15))
     fig.suptitle(f"Ligand {ligand_id}: Equidistant selections based on steric/geometric features", fontsize=16, x=0.5, y=0.93, fontweight='bold')
 
@@ -168,7 +235,23 @@ def plot_equidistant_feature_selections(df, ligand_id, features, sele_num=10, te
         plt.savefig(f"{ligand_id}_steric-sel_{sele_num}confs.svg")
 
 
-def plot_equidistant_energy_selections(df, ligand_id, features, sele_num=10, text_file_path=None, write_text_file=False, savefig=False):
+def plot_equidistant_energy_selections(df, ligand_id, features, sele_num=10, text_file_path=None, write_text_file=False, savefig=False):\
+    """
+    Plots equidistant selections of conformers based on the xtb energy.
+    Selections are plotted as a histogram and as a scatter plot of the xtb energy against the xtb energy.
+    The LEC is also plotted.
+    Outputs a text file of the selected conformers.
+    
+    Args:
+        df (pd.DataFrame): Dataframe containing feature data.
+        ligand_id (str): Ligand ID.
+        features (list): List of features to plot.
+        sele_num (int, optional): Number of conformers to select. Defaults to 10.
+        
+    Returns:
+        None
+    """
+
     fig, axs = plt.subplots(nrows=3, ncols=3, figsize=(20,15))
     fig.suptitle(f"Ligand {ligand_id}: Equidistant selections based on GFN2-xTB energy", fontsize=16, x=0.5, y=0.93, fontweight='bold')
 
@@ -212,6 +295,21 @@ def plot_equidistant_energy_selections(df, ligand_id, features, sele_num=10, tex
 
 
 def plot_dft_distributions(df_all, df_sele, ligand_id, descriptors, savefig=False):
+    """
+    Plots the distribution of DFT descriptors for a ligand.
+    Selected conformers are plotted as a scatter plot.
+    
+    Args:
+        df_all (pd.DataFrame): Dataframe containing all conformers.
+        df_sele (pd.DataFrame): Dataframe containing selected conformers.
+        ligand_id (str): Ligand ID.
+        descriptors (list): List of descriptors to plot.
+        savefig (bool, optional): Whether to save the figure. Defaults to False.
+        
+    Returns:
+        None
+    """
+
     fig, axs = plt.subplots(nrows=6, ncols=3, figsize=(20,32))
     fig.suptitle(f"Ligand {ligand_id} selected conformers", fontsize=16, x=0.5, y=0.90, fontweight='bold')
 
