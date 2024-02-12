@@ -12,3 +12,6 @@ dependencies:
   - tqdm
   - scikit-learn
   - openpyxl
+  - scipy
+  - pip:
+    - autoelbow
