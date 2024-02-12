@@ -72,7 +72,7 @@ def plot_tsne(dim1: pd.DataFrame, dim2: pd.DataFrame, save=False):
     plt.show()
 
     if save:
-        plt.savefig("tsne.svg")
+        plt.savefig("tsne.png")
 
 
 def plot_tsne_clusters(dim1: pd.DataFrame, dim2: pd.DataFrame, clusters: pd.DataFrame, centroids=None, legend=True,
@@ -120,7 +120,7 @@ def plot_tsne_clusters(dim1: pd.DataFrame, dim2: pd.DataFrame, clusters: pd.Data
     plt.show()
 
     if save:
-        plt.savefig("tsne_clusters.svg")
+        plt.savefig("tsne_clusters.png")
 
 
 def plot_pca(dim1: pd.DataFrame, dim2: pd.DataFrame, save=False):
@@ -143,7 +143,7 @@ def plot_pca(dim1: pd.DataFrame, dim2: pd.DataFrame, save=False):
     plt.show()
 
     if save:
-        plt.savefig("pca.svg")
+        plt.savefig("pca.png")
 
 
 def plot_pca_clusters(dim1: pd.DataFrame, dim2: pd.DataFrame, clusters: pd.DataFrame, centroids=None, legend=False,
@@ -189,5 +189,5 @@ def plot_pca_clusters(dim1: pd.DataFrame, dim2: pd.DataFrame, clusters: pd.DataF
     plt.show()
 
     if save:
-        plt.savefig("pca_clusters.svg")
+        plt.savefig("pca_clusters.png")
         

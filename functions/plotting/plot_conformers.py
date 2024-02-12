@@ -51,7 +51,7 @@ def bar_graph(ligands: str, dictionary: dict, save=False):
     ax.legend()
 
     if save:
-        plt.savefig("conformers.png")
+        plt.savefig("conformer_bars.png")
 
 
 def rmsd_analysis(ligands: str, set1: Path, set2: Path, save=False):
@@ -125,7 +125,7 @@ def rmsd_analysis(ligands: str, set1: Path, set2: Path, save=False):
     plt.tight_layout()
 
     if save:
-        plt.savefig(f"rmsd_analysis_{set1.name}_{set2.name}.svg")
+        plt.savefig(f"rmsd_analysis_{set1.name}_{set2.name}.png")
 
 
 def feature_histograms(ligands: str, feature: str, data1: pd.DataFrame, data2: pd.DataFrame, label1: str, label2: str,
@@ -165,7 +165,7 @@ def feature_histograms(ligands: str, feature: str, data1: pd.DataFrame, data2: p
     plt.tight_layout()
 
     if save:
-        plt.savefig(f"feature_histograms_{feature}.svg")
+        plt.savefig(f"feature_histograms_{feature}.png")
 
 
 def plot_equidistant_feature_selections(df, ligand_id, features, sele_num=10, text_file_path=None,
@@ -243,7 +243,7 @@ def plot_equidistant_feature_selections(df, ligand_id, features, sele_num=10, te
         ax.legend()
 
     if savefig:
-        plt.savefig(f"{ligand_id}_steric-sel_{sele_num}confs.svg")
+        plt.savefig(f"{ligand_id}_steric-sel_{sele_num}confs.png")
 
 
 def plot_equidistant_energy_selections(df: pd.DataFrame, ligand_id: str, features: list, sele_num: int = 10,
@@ -309,7 +309,7 @@ def plot_equidistant_energy_selections(df: pd.DataFrame, ligand_id: str, feature
         ax.set_ylabel('Count')
 
     if savefig:
-        plt.savefig(f"{ligand_id}_energy-sel_{sele_num}confs.svg")
+        plt.savefig(f"{ligand_id}_energy-sel_{sele_num}confs.png")
 
 
 def plot_dft_distributions(df_all, df_sele, ligand_id, descriptors, savefig=False):
@@ -337,4 +337,4 @@ def plot_dft_distributions(df_all, df_sele, ligand_id, descriptors, savefig=Fals
             ax.scatter(x=i, y=0.1, color=RED, s=400, edgecolor='w')
 
     if savefig:
-        plt.savefig(f"{ligand_id}_dft_distribution.svg")
+        plt.savefig(f"{ligand_id}_dft_distribution.png")
