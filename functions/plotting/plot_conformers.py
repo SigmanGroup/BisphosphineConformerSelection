@@ -8,7 +8,7 @@ from pathlib import Path
 import os
 import pandas as pd
 import seaborn as sns
-from tqdm import tqdm
+from tqdm.notebook import tqdm
 from functions import utils
 
 import MDAnalysis as mda
@@ -79,7 +79,7 @@ def rmsd_analysis(ligands: str, set1: Path, set2: Path, save=False):
     file1 = None
     file2 = None
 
-    for ligand, ax in zip(tqdm(ligands, ncols=80), axs.ravel()[:len(ligands)]):
+    for ligand, ax in zip(tqdm(ligands, total=len(ligands)), axs.ravel()[:len(ligands)]):
         for file in filelist1:
             if ligand in file:
                 file1 = file
