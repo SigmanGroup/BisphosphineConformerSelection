@@ -6,3 +6,4 @@ png_files/
 MD_analysis.ipynb
 *.svg
 *.png
+*.txt
