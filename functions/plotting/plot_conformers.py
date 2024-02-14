@@ -328,13 +328,15 @@ def plot_dft_distributions(df_all, df_sele, ligand_id, descriptors, savefig=Fals
         None
     """
 
-    fig, axs = plt.subplots(nrows=6, ncols=3, figsize=(20, 32))
-    fig.suptitle(f"Ligand {ligand_id} selected conformers", fontsize=16, x=0.5, y=0.90, fontweight='bold')
+    fig, axs = plt.subplots(nrows=6, ncols=3, figsize=(20, 20))
+    # fig.suptitle(f"Ligand {ligand_id} selected conformers", fontsize=16, fontweight='bold')
 
     for descriptors, ax in zip(descriptors, axs.ravel()):
         sns.histplot(df_all[descriptors], kde=True, ax=ax, color=LIGHT_BLUE)
         for i in df_sele[descriptors]:
             ax.scatter(x=i, y=0.1, color=RED, s=400, edgecolor='w')
+
+    plt.tight_layout()
 
     if savefig:
         plt.savefig(f"{ligand_id}_dft_distribution.png")

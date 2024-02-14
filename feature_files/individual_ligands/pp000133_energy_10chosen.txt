@@ -1,0 +1,11 @@
+Selected ligands from energy: 
+pp000133-Pd_1.xyz
+pp000133-Pd_2.xyz
+pp000133-Pd_4.xyz
+pp000133-Pd_5.xyz
+pp000133-Pd_7.xyz
+pp000133-Pd_8.xyz
+pp000133-Pd_10.xyz
+pp000133-Pd_11.xyz
+pp000133-Pd_13.xyz
+pp000133-Pd_15.xyz

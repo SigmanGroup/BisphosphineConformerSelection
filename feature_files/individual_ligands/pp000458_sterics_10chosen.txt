@@ -1,0 +1,36 @@
+Selected ligands from bite_angle: 
+LEC: pp000458-Pd_1.xyz
+pp000458-Pd_2.xyz
+pp000458-Pd_2.xyz
+pp000458-Pd_2.xyz
+pp000458-Pd_2.xyz
+pp000458-Pd_2.xyz
+pp000458-Pd_1.xyz
+pp000458-Pd_1.xyz
+pp000458-Pd_1.xyz
+pp000458-Pd_1.xyz
+pp000458-Pd_3.xyz
+Selected ligands from solid_cone_angle: 
+LEC: pp000458-Pd_1.xyz
+pp000458-Pd_2.xyz
+pp000458-Pd_2.xyz
+pp000458-Pd_2.xyz
+pp000458-Pd_2.xyz
+pp000458-Pd_2.xyz
+pp000458-Pd_1.xyz
+pp000458-Pd_1.xyz
+pp000458-Pd_1.xyz
+pp000458-Pd_1.xyz
+pp000458-Pd_3.xyz
+Selected ligands from bite_angle_buried_volume: 
+LEC: pp000458-Pd_1.xyz
+pp000458-Pd_2.xyz
+pp000458-Pd_2.xyz
+pp000458-Pd_2.xyz
+pp000458-Pd_2.xyz
+pp000458-Pd_2.xyz
+pp000458-Pd_1.xyz
+pp000458-Pd_1.xyz
+pp000458-Pd_1.xyz
+pp000458-Pd_1.xyz
+pp000458-Pd_3.xyz

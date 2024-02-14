@@ -84,6 +84,43 @@ def select_lec(df: pd.DataFrame, column: str) -> pd.DataFrame:
     return lec
 
 
+def read_energy_selection_txt_file(txt_file: str, sele_num: int = 10) -> list:
+    """
+    Reads the selection.txt file from conformers selected using xTB energy.
+    Returns a list of the selected conformers.
+    
+    Args:
+        txt_file (str): Path to selection.txt file.
+        sele_num (int, optional): Number of conformers selected. Defaults to 10.
+        
+    Returns:
+        list: List of selected conformers.
+    """
+    
+    selections = []
+
+    with open(txt_file, 'r') as file:
+        lines = []
+        for line in file.readlines():
+            lines.append(line.strip())
+
+        energy_str = "energy"
+        for row in lines:
+            if row.find(energy_str) != -1:
+                idx = lines.index(row)
+                selections.append(lines[idx+1:idx+sele_num+2])
+
+    dft = []
+    for selection in selections[0]:
+        file = str(selection)
+        if file in dft:
+            continue
+        else:
+            dft.append(file)
+
+    return dft
+
+
 def read_selection_txt_file(txt_file: str, sele_num: int = 10) -> tuple[list, list]:
     """
     Reads the selection.txt file from conformers selected using MORFEUS features of xtb energy.
