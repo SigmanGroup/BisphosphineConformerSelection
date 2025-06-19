@@ -32,3 +32,7 @@ Contains code for the comparison of the electronic, steric and geometric feature
 ### EquidistantConformers.ipynb
 
 Contains code for selection of conformers based on GFN2-xTB energy as well as steric/geometric bisphosphine ligand features. See Section 5 of the Supporting Information.
+
+### Heck_MLR_Model.ipynb and SIA_DTR_Model.ipynb
+
+Contains code used for generation of models of the Hayashi-Heck cross-coupling and SIA aryl carbonylation datasets. Note that the DFT calculations used to generate features can be found on Zenodo: [![DOI](https://zenodo.org/badge/15690854.svg)](https://zenodo.org/doi/10.5281/zenodo.15690854)
