@@ -14,5 +14,6 @@ dependencies:
   - scikit-learn
   - openpyxl
   - scipy
+  - shap
   - pip:
     - autoelbow
